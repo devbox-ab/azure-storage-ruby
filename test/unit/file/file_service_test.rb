@@ -27,7 +27,7 @@ require "azure/storage/file"
 describe Azure::Storage::File::FileService do
   let(:user_agent_prefix) { "azure_storage_ruby_unit_test" }
   subject {
-    Azure::Storage::File::FileService.new {}
+    Azure::Storage::File::FileService.new({})
   }
   let(:serialization) { Azure::Storage::File::Serialization }
   let(:uri) { URI.parse "http://foo.com" }
