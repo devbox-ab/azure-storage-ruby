@@ -23,6 +23,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #--------------------------------------------------------------------------
+require "faraday/follow_redirects"
 
 module Azure::Storage::Common::Core
   module HttpClient
@@ -71,7 +72,7 @@ module Azure::Storage::Common::Core
                           URI::parse(ENV["HTTPS_PROXY"])
                         end || nil
         Faraday.new(uri, ssl: ssl_options, proxy: proxy_options) do |conn|
-          conn.use FaradayMiddleware::FollowRedirects
+          conn.response :follow_redirects
           conn.adapter :net_http_persistent, pool_size: 5 do |http|
             # yields Net::HTTP::Persistent
             http.idle_timeout = 100
